@@ -1,10 +1,10 @@
 	
 // Initialize Firebase
 		  var config = {
-			apiKey: "AIzaSyCKV_pNSboGBUUU60VBwN_UQrBNi0aWXQU",
-			authDomain: "citywalkofiriga.firebaseapp.com",
-			databaseURL: "https://citywalkofiriga.firebaseio.com",
-			projectId: "citywalkofiriga",
+			apiKey: "your api",
+			authDomain: "package project",
+			databaseURL: "url of your database",
+			projectId: "id",
 			storageBucket: "",
 		//	messagingSenderId: "174816598795"
 		  };
@@ -16,23 +16,23 @@ var db = firebase.database();
 // CREATE REWIEW
 
 var reviewForm = document.getElementById('reviewForm');
-var fullName   = document.getElementById('fullName');
+var name   = document.getElementById('name');
 var message    = document.getElementById('message');
 var hiddenId   = document.getElementById('hiddenId');
 
 reviewForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  if (!fullName.value || !message.value) return null
+  if (!name.value || !message.value) return null
 
   var id = hiddenId.value || Date.now()
 
   db.ref('reviews/' + id).set({
-    fullName: fullName.value,
+    fullName: name.value,
     message: message.value
   });
 
-  fullName.value = '';
+  name.value = '';
   message.value  = '';
   hiddenId.value = '';
 });
@@ -64,7 +64,7 @@ reviews.addEventListener('click', (e) => {
 
   // UPDATE REVEIW
   if (e.target.classList.contains('edit')) {
-    fullName.value = reviewNode.querySelector('.fullName').innerText;
+    name.value = reviewNode.querySelector('.name').innerText;
     message.value  = reviewNode.querySelector('.message').innerText;
     hiddenId.value = reviewNode.id;
   }
@@ -76,9 +76,9 @@ reviews.addEventListener('click', (e) => {
   }
 });
 
-function reviewTemplate({fullName, message}) {
+function reviewTemplate({name, message}) {
   return `
-    <div class='fullName'>${fullName}</div>
+    <div class='name'>${name}</div>
     <div class='message'>${message}</div>
     <button class='delete'>Delete</button>
     <button class='edit'>Edit</button>
